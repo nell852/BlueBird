@@ -14,63 +14,55 @@ function url($path) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blue Bird Express - Réservation de Voyages</title>
     <!-- Utiliser un chemin absolu pour le CSS -->
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/modern-style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/public/js/map.js" defer></script>
     <style>
-        .client-navbar {
-            background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
-            color: white;
-            padding: 15px 30px;
+        .custom-bus-marker, .custom-city-marker {
+            background: transparent;
+            border: none;
+        }
+        .bus-marker, .city-marker {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        
-        .client-navbar h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        
-        .navbar-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-        
-        .navbar-links a {
-            color: white;
-            text-decoration: none;
+            gap: 6px;
             font-weight: 600;
-            transition: all 0.3s ease;
+        }
+        .bus-icon, .city-icon {
+            font-size: 20px;
+        }
+        .map-popup h3 {
+            margin-bottom: 12px;
+            color: #667eea;
+        }
+        .map-popup p {
+            margin: 8px 0;
+            font-size: 14px;
         }
         
-        .navbar-links a:hover {
-            opacity: 0.8;
-            text-decoration: underline;
-        }
-        
-        .client-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 30px;
-        }
     </style>
 </head>
 <body>
     <!-- NAVBAR CLIENT -->
-    <div class="client-navbar">
-        <h1>🐦 Blue Bird Express</h1>
-        <div class="navbar-links">
-            <a href="/client/voyages">Voyages</a>
-            <a href="/client/reservations">Mes Réservations</a>
-            <?php if (isset($_SESSION['client_id'])): ?>
-                <span><?php echo htmlspecialchars($_SESSION['client_prenom'] ?? 'Client'); ?></span>
-                <a href="/logout" style="background-color: #dc3545; padding: 8px 15px; border-radius: 4px;">Déconnexion</a>
-            <?php else: ?>
-                <a href="/client/login">Connexion</a>
-                <a href="/client/register" style="background-color: #28a745; padding: 8px 15px; border-radius: 4px;">Inscription</a>
-            <?php endif; ?>
+    <div class="client-header">
+        <div class="client-nav">
+            <h1>🐦 Blue Bird Express</h1>
+            <div class="client-nav-links">
+                <a href="/client/voyages">Voyages</a>
+                <a href="/client/reservations">Mes Réservations</a>
+                <?php if (isset($_SESSION['client_id'])): ?>
+                    <div class="user-avatar"><?php echo strtoupper(substr($_SESSION['client_prenom'] ?? 'C', 0, 1)); ?></div>
+                    <a href="/logout" style="background-color: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 8px;">Déconnexion</a>
+                <?php else: ?>
+                    <a href="/client/login">Connexion</a>
+                    <a href="/client/register" style="background-color: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 8px;">Inscription</a>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 

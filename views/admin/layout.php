@@ -9,7 +9,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blue Bird Express - Admin</title>
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="/public/css/modern-style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/public/js/map.js" defer></script>
+    <style>
+        .custom-bus-marker, .custom-city-marker {
+            background: transparent;
+            border: none;
+        }
+        .bus-marker, .city-marker {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+        .bus-icon, .city-icon {
+            font-size: 20px;
+        }
+        .map-popup h3 {
+            margin-bottom: 12px;
+            color: #667eea;
+        }
+        .map-popup p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
     <div class="admin-container">
