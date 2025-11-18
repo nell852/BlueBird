@@ -20,32 +20,32 @@
             </div>
             <ul class="sidebar-nav">
                 <li>
-                    <a href="index.php?action=admin&subaction=dashboard" class="<?php echo ($_GET['subaction'] ?? '') === 'dashboard' ? 'active' : ''; ?>">
+                    <a href="/admin/dashboard" class="<?php echo ($_GET['subaction'] ?? '') === 'dashboard' ? 'active' : ''; ?>">
                         📊 Dashboard
                     </a>
                 </li>
                 <li>
-                    <a href="index.php?action=admin&subaction=clients" class="<?php echo ($_GET['subaction'] ?? '') === 'clients' ? 'active' : ''; ?>">
+                    <a href="/admin/clients" class="<?php echo ($_GET['subaction'] ?? '') === 'clients' ? 'active' : ''; ?>">
                         👥 Clients
                     </a>
                 </li>
                 <li>
-                    <a href="index.php?action=admin&subaction=vehicules" class="<?php echo ($_GET['subaction'] ?? '') === 'vehicules' ? 'active' : ''; ?>">
+                    <a href="/admin/vehicules" class="<?php echo ($_GET['subaction'] ?? '') === 'vehicules' ? 'active' : ''; ?>">
                         🚌 Véhicules
                     </a>
                 </li>
                 <li>
-                    <a href="index.php?action=admin&subaction=voyages" class="<?php echo ($_GET['subaction'] ?? '') === 'voyages' ? 'active' : ''; ?>">
+                    <a href="/admin/voyages" class="<?php echo ($_GET['subaction'] ?? '') === 'voyages' ? 'active' : ''; ?>">
                         ✈️ Voyages
                     </a>
                 </li>
                 <li>
-                    <a href="index.php?action=admin&subaction=reservations" class="<?php echo ($_GET['subaction'] ?? '') === 'reservations' ? 'active' : ''; ?>">
+                    <a href="/admin/reservations" class="<?php echo ($_GET['subaction'] ?? '') === 'reservations' ? 'active' : ''; ?>">
                         🎫 Réservations
                     </a>
                 </li>
                 <li>
-                    <a href="index.php?action=logout">
+                    <a href="/logout">
                         🚪 Déconnexion
                     </a>
                 </li>

@@ -11,7 +11,7 @@ $pageTitle = "Inscription";
             <h2>Créer un Compte</h2>
         </div>
         <div class="card-body">
-            <form action="index.php?action=client&subaction=register" method="POST">
+            <form action="/client/register" method="POST">
                 <div class="form-group">
                     <label for="nom">Nom *</label>
                     <input type="text" id="nom" name="nom" required>
@@ -46,7 +46,7 @@ $pageTitle = "Inscription";
             </form>
 
             <p style="text-align: center; margin-top: 20px;">
-                Vous avez déjà un compte? <a href="index.php?action=client&subaction=login" style="color: #007BFF;">Connectez-vous</a>
+                Vous avez déjà un compte? <a href="/client/login" style="color: #007BFF;">Connectez-vous</a>
             </p>
         </div>
     </div>

@@ -11,7 +11,7 @@ $pageTitle = "Connexion";
             <h2>Connexion à votre Compte</h2>
         </div>
         <div class="card-body">
-            <form action="index.php?action=client&subaction=login" method="POST">
+            <form action="/client/login" method="POST">
                 <div class="form-group">
                     <label for="email">Email *</label>
                     <input type="email" id="email" name="email" required>
@@ -26,7 +26,7 @@ $pageTitle = "Connexion";
             </form>
 
             <p style="text-align: center; margin-top: 20px;">
-                Pas encore de compte? <a href="index.php?action=client&subaction=register" style="color: #007BFF;">Inscrivez-vous</a>
+                Pas encore de compte? <a href="/client/register" style="color: #007BFF;">Inscrivez-vous</a>
             </p>
         </div>
     </div>

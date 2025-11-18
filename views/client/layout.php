@@ -62,14 +62,14 @@ function url($path) {
     <div class="client-navbar">
         <h1>🐦 Blue Bird Express</h1>
         <div class="navbar-links">
-            <a href="/index.php?action=client&subaction=voyages">Voyages</a>
-            <a href="/index.php?action=client&subaction=reservations">Mes Réservations</a>
+            <a href="/client/voyages">Voyages</a>
+            <a href="/client/reservations">Mes Réservations</a>
             <?php if (isset($_SESSION['client_id'])): ?>
                 <span><?php echo htmlspecialchars($_SESSION['client_prenom'] ?? 'Client'); ?></span>
-                <a href="/index.php?action=logout" style="background-color: #dc3545; padding: 8px 15px; border-radius: 4px;">Déconnexion</a>
+                <a href="/logout" style="background-color: #dc3545; padding: 8px 15px; border-radius: 4px;">Déconnexion</a>
             <?php else: ?>
-                <a href="/index.php?action=client&subaction=login">Connexion</a>
-                <a href="/index.php?action=client&subaction=register" style="background-color: #28a745; padding: 8px 15px; border-radius: 4px;">Inscription</a>
+                <a href="/client/login">Connexion</a>
+                <a href="/client/register" style="background-color: #28a745; padding: 8px 15px; border-radius: 4px;">Inscription</a>
             <?php endif; ?>
         </div>
     </div>
