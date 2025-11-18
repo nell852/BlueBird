@@ -5,13 +5,26 @@ class Database {
 
     private function __construct() {
         try {
-            $host = getenv('DB_HOST') ?: 'localhost';
-            $database = getenv('DB_NAME') ?: 'bluebird_express';
-            $username = getenv('DB_USER') ?: 'root';
-            $password = getenv('DB_PASSWORD') ?: '';
-            $port = getenv('DB_PORT') ?: '3306';
+            $databaseUrl = getenv('DATABASE_URL');
             
-            $dsn = "mysql:host=$host;port=$port;dbname=$database;charset=utf8mb4";
+            if ($databaseUrl) {
+                $parsed = parse_url($databaseUrl);
+                $host = $parsed['host'] ?? 'localhost';
+                $port = $parsed['port'] ?? 5432;
+                $database = ltrim($parsed['path'] ?? '', '/');
+                $username = $parsed['user'] ?? '';
+                $password = $parsed['pass'] ?? '';
+                
+                $dsn = "pgsql:host=$host;port=$port;dbname=$database";
+            } else {
+                $host = getenv('PGHOST') ?: 'localhost';
+                $port = getenv('PGPORT') ?: '5432';
+                $database = getenv('PGDATABASE') ?: 'bluebird_express';
+                $username = getenv('PGUSER') ?: 'postgres';
+                $password = getenv('PGPASSWORD') ?: '';
+                
+                $dsn = "pgsql:host=$host;port=$port;dbname=$database";
+            }
 
             $this->pdo = new PDO($dsn, $username, $password, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
