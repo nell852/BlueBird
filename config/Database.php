@@ -5,36 +5,18 @@ class Database {
 
     private function __construct() {
         try {
-            $databaseUrl = getenv('DATABASE_URL');
+            $server = 'localhost';
+            $database = 'bluebird_express';
             
-            if ($databaseUrl) {
-                $parsed = parse_url($databaseUrl);
-                $host = $parsed['host'] ?? 'localhost';
-                $port = $parsed['port'] ?? 5432;
-                $database = ltrim($parsed['path'] ?? '', '/');
-                $username = $parsed['user'] ?? '';
-                $password = $parsed['pass'] ?? '';
-                
-                $dsn = "pgsql:host=$host;port=$port;dbname=$database";
-            } else {
-                $host = getenv('PGHOST') ?: 'localhost';
-                $port = getenv('PGPORT') ?: '5432';
-                $database = getenv('PGDATABASE') ?: 'bluebird_express';
-                $username = getenv('PGUSER') ?: 'postgres';
-                $password = getenv('PGPASSWORD') ?: '';
-                
-                $dsn = "pgsql:host=$host;port=$port;dbname=$database";
-            }
+            $dsn = "sqlsrv:Server=$server;Database=$database";
 
-            $this->pdo = new PDO($dsn, $username, $password, [
+            $this->pdo = new PDO($dsn, null, null, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
             ]);
 
         } catch (PDOException $e) {
-            error_log("Database connection error: " . $e->getMessage());
-            die("Erreur de connexion à la base de données. Veuillez vérifier la configuration.");
+            die("Erreur de connexion SQL Server: " . $e->getMessage());
         }
     }
 
