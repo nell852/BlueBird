@@ -24,8 +24,8 @@ class ReservationController {
         if (empty($_SESSION['client_id'])) {
             $_SESSION['message'] = 'Veuillez vous connecter pour accéder à cette page.';
             $_SESSION['message_type'] = 'error';
-            header('Location: /client/login');
-            exit;
+            redirect('client.login');
+
         }
     }
     
@@ -75,8 +75,8 @@ class ReservationController {
         if (!$voyage) {
             $_SESSION['message'] = 'Voyage non trouvé.';
             $_SESSION['message_type'] = 'error';
-            header('Location: /client/voyages');
-            exit;
+            redirect('client.voyages');
+
         }
         
         // Générer les numéros de sièges disponibles
@@ -101,20 +101,20 @@ class ReservationController {
             if (empty($id_voyage) || empty($siege_assigne)) {
                 $_SESSION['message'] = 'Veuillez sélectionner un voyage et un siège.';
                 $_SESSION['message_type'] = 'error';
-                header('Location: /client/voyages');
-                exit;
+                redirect('client.voyages');
+
             }
             
             if ($this->reservationModel->createReservation($id_client, $id_voyage, $siege_assigne)) {
                 $_SESSION['message'] = 'Réservation confirmée avec succès!';
                 $_SESSION['message_type'] = 'success';
-                header('Location: /client/reservations');
-                exit;
+                redirect('client.reservations');
+
             } else {
                 $_SESSION['message'] = 'Erreur lors de la création de la réservation.';
                 $_SESSION['message_type'] = 'error';
-                header('Location: /client/voyages');
-                exit;
+                redirect('client.voyages');
+
             }
         }
     }
@@ -147,8 +147,8 @@ class ReservationController {
             $_SESSION['message_type'] = 'error';
         }
         
-        header('Location: /client/reservations');
-        exit;
+        redirect('client.reservations');
+
     }
 }
 ?>

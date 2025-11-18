@@ -51,8 +51,8 @@ class ClientController {
                 $_SESSION['message_type'] = 'error';
             }
             
-            header('Location: /admin/clients');
-            exit;
+            redirect('admin.clients');
+
         }
     }
     
@@ -64,8 +64,8 @@ class ClientController {
         if (!$client) {
             $_SESSION['message'] = 'Client non trouvé.';
             $_SESSION['message_type'] = 'error';
-            header('Location: /admin/clients');
-            exit;
+            redirect('admin.clients');
+
         }
         $pageTitle = "✏️ Modifier le Client";
         $content = __DIR__ . '/../views/admin/client_modifier.php';
@@ -91,8 +91,8 @@ class ClientController {
                 $_SESSION['message_type'] = 'error';
             }
             
-            header('Location: /admin/clients');
-            exit;
+            redirect('admin.clients');
+
         }
     }
     
@@ -108,8 +108,8 @@ class ClientController {
             $_SESSION['message_type'] = 'error';
         }
         
-        header('Location: /admin/clients');
-        exit;
+        redirect('admin.clients');
+
     }
 }
 ?>

@@ -65,8 +65,8 @@ class VoyageController {
                 $_SESSION['message_type'] = 'error';
             }
             
-            header('Location: /admin/voyages');
-            exit;
+            redirect('admin.voyages');
+
         }
     }
     
@@ -82,8 +82,8 @@ class VoyageController {
             $_SESSION['message_type'] = 'error';
         }
         
-        header('Location: /admin/voyages');
-        exit;
+        redirect('admin.voyages');
+
     }
 }
 ?>

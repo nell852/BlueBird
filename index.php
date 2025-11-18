@@ -8,6 +8,7 @@ session_start();
 
 // Chargement des fichiers de configuration et modèles
 require_once __DIR__ . '/config/Database.php';
+require_once __DIR__ . '/config/url_helper.php';
 
 // Auto-loader pour les contrôleurs et modèles
 spl_autoload_register(function ($class) {
@@ -29,13 +30,28 @@ $action = $_GET['action'] ?? 'client';
 $subaction = $_GET['subaction'] ?? 'login';
 $id = $_GET['id'] ?? null;
 
-// Redirection par défaut
-if ($action === 'client' && $subaction === 'login' && !isset($_GET['action'])) {
-    // Ceci est la première visite, laisser passer
-}
-
-if ($action === '/' || $action === '/index.php') {
-    header('Location: index.php?action=client&subaction=login');
+// Gérer les erreurs 404
+if ($action === 'error') {
+    http_response_code(404);
+    echo '<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page non trouvée</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        h1 { font-size: 72px; margin: 0; }
+        p { font-size: 24px; }
+        a { color: white; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>404</h1>
+    <p>Page non trouvée</p>
+    <p><a href="/">Retour à l\'accueil</a></p>
+</body>
+</html>';
     exit;
 }
 
@@ -92,8 +108,7 @@ try {
             case 'reservations':
             case 'list':
                 if (!isset($_SESSION['client_id'])) {
-                    header('Location: index.php?action=client&subaction=login');
-                    exit;
+                    redirect('client.login');
                 }
                 $reservationController->listAction();
                 break;
@@ -192,14 +207,28 @@ try {
     if ($action === 'logout') {
         session_destroy();
         $_SESSION = [];
-        header('Location: index.php?action=client&subaction=login');
-        exit;
+        redirect('client.login');
     }
     
     http_response_code(404);
-    echo '<h1>404 - Page non trouvée</h1>';
-    echo '<p>L\'action demandée n\'existe pas.</p>';
-    echo '<a href="index.php?action=client&subaction=login">Retour à la connexion</a>';
+    echo '<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Page non trouvée</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        h1 { font-size: 72px; margin: 0; }
+        p { font-size: 24px; }
+        a { color: white; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>404</h1>
+    <p>Page non trouvée</p>
+    <p><a href="/">Retour à l\'accueil</a></p>
+</body>
+</html>';
     exit;
     
 } catch (Exception $e) {
@@ -217,8 +246,7 @@ try {
  */
 function checkAdminAccess() {
     if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-        header('Location: index.php?action=client&subaction=login');
-        exit;
+        redirect('client.login');
     }
 }
 

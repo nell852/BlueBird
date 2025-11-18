@@ -36,34 +36,29 @@ class AuthController {
             if (empty($nom) || empty($prenom) || empty($email) || empty($password)) {
                 $_SESSION['message'] = 'Veuillez remplir tous les champs obligatoires.';
                 $_SESSION['message_type'] = 'error';
-                header('Location: /client/register');
-                exit;
+                redirect('client.register');
             }
             
             if ($password !== $confirm_password) {
                 $_SESSION['message'] = 'Les mots de passe ne correspondent pas.';
                 $_SESSION['message_type'] = 'error';
-                header('Location: index.php?action=client&subaction=register');
-                exit;
+                redirect('client.register');
             }
             
             if (strlen($password) < 6) {
                 $_SESSION['message'] = 'Le mot de passe doit contenir au moins 6 caractères.';
                 $_SESSION['message_type'] = 'error';
-                header('Location: index.php?action=client&subaction=register');
-                exit;
+                redirect('client.register');
             }
             
             if ($this->clientModel->register($nom, $prenom, $email, $password, $telephone)) {
                 $_SESSION['message'] = 'Inscription réussie! Veuillez vous connecter.';
                 $_SESSION['message_type'] = 'success';
-                header('Location: index.php?action=client&subaction=login');
-                exit;
+                redirect('client.login');
             } else {
                 $_SESSION['message'] = 'Cet email est déjà utilisé ou une erreur est survenue.';
                 $_SESSION['message_type'] = 'error';
-                header('Location: index.php?action=client&subaction=register');
-                exit;
+                redirect('client.register');
             }
         }
     }
@@ -88,8 +83,7 @@ class AuthController {
             if (empty($email) || empty($password)) {
                 $_SESSION['message'] = 'Veuillez remplir l\'email et le mot de passe.';
                 $_SESSION['message_type'] = 'error';
-                header('Location: index.php?action=client&subaction=login');
-                exit;
+                redirect('client.login');
             }
             
             $client = $this->clientModel->login($email, $password);
@@ -102,13 +96,11 @@ class AuthController {
                 
                 $_SESSION['message'] = 'Connexion réussie! Bienvenue ' . $client['prenom'] . '.';
                 $_SESSION['message_type'] = 'success';
-                header('Location: index.php?action=client&subaction=voyages');
-                exit;
+                redirect('client.voyages');
             } else {
                 $_SESSION['message'] = 'Email ou mot de passe incorrect.';
                 $_SESSION['message_type'] = 'error';
-                header('Location: index.php?action=client&subaction=login');
-                exit;
+                redirect('client.login');
             }
         }
     }
@@ -119,8 +111,7 @@ class AuthController {
     public function logoutAction() {
         session_destroy();
         $_SESSION = [];
-        header('Location: index.php?action=client&subaction=login');
-        exit;
+        redirect('client.login');
     }
 }
 ?>

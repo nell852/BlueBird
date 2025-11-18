@@ -51,8 +51,8 @@ class VehiculeController {
                 $_SESSION['message_type'] = 'error';
             }
             
-            header('Location: /admin/vehicules');
-            exit;
+            redirect('admin.vehicules');
+
         }
     }
     
@@ -64,8 +64,8 @@ class VehiculeController {
         if (!$vehicule) {
             $_SESSION['message'] = 'Véhicule non trouvé.';
             $_SESSION['message_type'] = 'error';
-            header('Location: /admin/vehicules');
-            exit;
+            redirect('admin.vehicules');
+
         }
         $pageTitle = "✏️ Modifier le Véhicule";
         $content = __DIR__ . '/../views/admin/vehicule_modifier.php';
@@ -92,8 +92,8 @@ class VehiculeController {
                 $_SESSION['message_type'] = 'error';
             }
             
-            header('Location: /admin/vehicules');
-            exit;
+            redirect('admin.vehicules');
+
         }
     }
     
@@ -109,8 +109,8 @@ class VehiculeController {
             $_SESSION['message_type'] = 'error';
         }
         
-        header('Location: /admin/vehicules');
-        exit;
+        redirect('admin.vehicules');
+
     }
 }
 ?>
